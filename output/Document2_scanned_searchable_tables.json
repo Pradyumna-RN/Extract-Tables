@@ -1,0 +1,45 @@
+{
+    "Tables": {
+        "Page 1": {
+            "Header": [
+                "Carton,Sales Value,Customs Value,Description,| Part Number,Unit Pricd,av],|ordor No"
+            ],
+            "Rows": [
+                [
+                    "3,w,\u00a33.52w,oN Q,7,2401-643,K180470/1,A-5000-7557,M4 STY D8R L186,EWL16,Country of Origin: UNITED KINGDOM,10,001,90313000 Export CPC,00,Commodity Code"
+                ],
+                [
+                    "\u00a30.00,2401-643,A-5004-0210,M2 STY D1S L10,K180471/2,Country of Origin: UNITED KINGDOM,Export CPC,Commodity Code"
+                ],
+                [
+                    "25.00,A-5004-1017,M2 STY D2SIN L20,2401-643,K180471/2,EWL,Country of Origin: UNITED KINGDOM,i0,001,90313000,Export CPC,Commodity Code"
+                ],
+                [
+                    "240.00,0.00,K180576,2401-629,A-8553-1226,CABLE-LEMO/R20WH,10M,INOIA,Country of Origin:,Export CPC,Commodity Code"
+                ],
+                [
+                    "224,00,1,K180576,RA27FAA104830L,2401-629,1,324.00,1,224.00,RESOLUTE FAN,278IT,Country of Origin: UNITED KINGDOM,90318080,Export CPC,Commodity Code"
+                ],
+                [
+                    "1,800.00,A-5923-0259,2401-629,K180644,MACHINE I/O - NO,Country of Origin: UNITED KINGOOM,S0313000,Commodity Code,Export CPC"
+                ],
+                [
+                    "[3,on [,18.68,2401-643,K180706/2,A-5003-0085,M3 STY D2.5R L30,+,|,EWL,Country of Origin: UNITED KINGDOM,90313000,Export CPC,Commodity Codo"
+                ],
+                [
+                    "SN,A-9585-0028,RTL GLUE CLAMP,2401-643,K180757,KIT,Country of Origin: UNITED KINGDOM,90318080,Export CPC,Commodity Code"
+                ],
+                [
+                    "S0,15,w,w Oo,K180757,T2011-S0A,2401-643,TONIC READHEAD,',5M RE,Country of Origin: UNITED KINGDOM,90318080 Export CPC,Commodity Codo"
+                ],
+                [
+                    "11.81,K180757,2401-643,A-8567-0004,RTLCA0-S 40MM,LONG,Country of Origin: UNITED KINGOOM,Commodity Code"
+                ]
+            ]
+        }
+    },
+    "Metadata": {
+        "format": "PDF 1.5",
+        "producer": "Skia/PDF m128"
+    }
+}
