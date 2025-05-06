@@ -12,7 +12,7 @@
                     "2401-643,A-5000-7557,K180470/1,M4 STYDSRL16,EWL16,UNITED KINGDOM,Country of Origin:,L,|) Code,Export CPC"
                 ],
                 [
-                    "K180471/2,A-5004-0210,M2 STYD1ISL10,2401-843,EWLS,UNITED KINGDOM,Country of Origin:,313,Export CPC,J"
+                    "K180471/2,A-5004-0210,M2 STYD1ISL10,2401-843,EWLS,UNITED KINGDOM,Country of Origin:,313,Code,Export CPC,jy"
                 ],
                 [
                     "K180471/2,A-5004-1017,M2 STY D2SIN L20,2401-843,EWL,UNITED KINGDOM,Country of Origin:,113000,Export CPC,J"
@@ -30,13 +30,13 @@
                     "2401-843,A-5003-0055,M3 STY D25R L30,K180706/2,EWL,UNITED KINGDOM,Country of Origin:,Export CPC,Commodity Code"
                 ],
                 [
-                    "2401-643,A-9585-0028,RTL GLUE CLAMP,K180757,KIT,UNITED KINGDOM,Country of Origin:,Export CPC,Commodity Code"
+                    "2401-843,A-9585-0028,RTL GLUE CLAMP,K180757,KIT,UNITED KINGDOM,Country of Origin:,Export CPC,Commodity Code"
                 ],
                 [
                     "T2011-50A,TONIC READHEAD,K180757,2401-643,SM RE,UNITED KINGDOM,Country of Origin:,Export CPC,Commodity Code"
                 ],
                 [
-                    "A-6567-0004,RTLC40-S 40MM,2401-643,K180757,LONG,UNITED KINGDOM,Country of Origin:,Export CPC,Commodity Code"
+                    "2401-643,A-6567-0004,RTLC40-S 40MM,K180757,LONG,UNITED KINGDOM,Country of Origin:,Export CPC,Commodity Code"
                 ],
                 []
             ]

@@ -37,7 +37,7 @@ def run_table_extraction():
 
 if __name__ == "__main__":
     # Step 1: Run scanned_to_searchable.py
-    num = input("Enter 0 to skip scanned_to_searchable.py or 1 to run: ").strip()
+    num = input("Enter 1 to convert scanned PDFs to searchable PDFs or 0 to skip: ").strip()
     if num == "1":
         run_scanned_to_searchable()
     elif num == "0":
