@@ -1,89 +1,121 @@
-import fitz  # PyMuPDF
-import pytesseract
-from PIL import Image, ImageOps
 import os
-import glob
+import requests  # pip install requests
 
-def preprocess_image(image_path):
-    """
-    Preprocesses the image to improve OCR accuracy.
-    """
-    # Open the image
-    image = Image.open(image_path)
+# The authentication key (API Key).
+# Get your own by registering at https://app.pdf.co
+API_KEY = "jamesmay2663@gmail.com_ovvnFpdr6zq3xtmY6EPlqRWbV9WXtVvGB9JIBF3AwfIKtZIbX1jHEwUv0rakxYlM"
 
-    # Convert to grayscale
-    image = image.convert("L")
+# Base URL for PDF.co Web API requests
+BASE_URL = "https://api.pdf.co/v1"
 
-    # Apply thresholding (binarization)
-    image = ImageOps.autocontrast(image)
+# Comma-separated list of page indices (or ranges) to process. Leave empty for all pages. Example: '0,2-5,7-'.
+Pages = ""
+# PDF document password. Leave empty for unprotected documents.
+Password = ""
+# OCR language. "eng", "fra", "deu", "spa" supported currently. Let us know if you need more.
+Language = "eng"
+# Destination PDF file name
+DestinationFile = ".\\digital.pdf"
 
-    # Resize the image to improve clarity
-    image = image.resize((image.width * 2, image.height * 2), Image.Resampling.LANCZOS)
 
-    return image
-
-def convert_to_searchable_pdf(input_pdf_path, output_pdf_path):
-    """
-    Converts a scanned PDF to a searchable PDF using Tesseract OCR.
-
-    Args:
-        input_pdf_path (str): Path to the input scanned PDF file.
-        output_pdf_path (str): Path to save the searchable output PDF file.
-    """
-    try:
-        pdf_document = fitz.open(input_pdf_path)
-        pdf_writer = fitz.open()  # Create a new PDF writer object
-
-        for page_number in range(len(pdf_document)):
-            page = pdf_document[page_number]
-            
-            # Render the page as an image
-            pix = page.get_pixmap(dpi=300)
-            image_path = f"page_{page_number + 1}.png"
-            pix.save(image_path)
-
-            # Preprocess the image
-            preprocessed_image = preprocess_image(image_path)
-
-            # Perform OCR on the preprocessed image
-            custom_config = r'--oem 3 --psm 6'
-            pdf_bytes = pytesseract.image_to_pdf_or_hocr(preprocessed_image, extension='pdf', config=custom_config)
-            pdf_page = fitz.open("pdf", pdf_bytes)
-
-            # Append the OCR-processed page to the new PDF
-            pdf_writer.insert_pdf(pdf_page)
-
-            # Remove the temporary image file
-            os.remove(image_path)
-
-        # Save the new searchable PDF
-        pdf_writer.save(output_pdf_path)
-        pdf_writer.close()
-        print(f"Successfully converted '{input_pdf_path}' to searchable PDF '{output_pdf_path}'")
-        return output_pdf_path
-    except Exception as e:
-        print(f"An error occurred while converting the PDF: {e}")
-        return None
-
-if __name__ == "__main__":
-    # Set the working directory to the script's directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
-
+def main(args=None):
     # List all PDF files in the current directory
-    pdf_files = glob.glob("*.pdf")
+    pdf_files = [f for f in os.listdir('.') if f.endswith('.pdf')]
     if not pdf_files:
         print("No PDF files found in the current directory.")
+        return
+
+    print("Available PDF files:")
+    for idx, pdf_file in enumerate(pdf_files, start=1):
+        print(f"{idx}. {pdf_file}")
+
+    # Prompt the user to select a file
+    selected_idx = int(input("Enter the number of the PDF file to process: ")) - 1
+    if selected_idx < 0 or selected_idx >= len(pdf_files):
+        print("Invalid selection.")
+        return
+
+    # Get the selected file
+    SourceFile = pdf_files[selected_idx]
+    print(f"Selected file: {SourceFile}")
+
+    # Upload the selected file and make it searchable
+    uploadedFileUrl = uploadFile(SourceFile)
+    if uploadedFileUrl is not None:
+        makeSearchablePDF(uploadedFileUrl, DestinationFile)
+
+
+def makeSearchablePDF(uploadedFileUrl, destinationFile):
+    """Make Uploaded PDF file Searchable using PDF.co Web API"""
+
+    # Prepare requests params as JSON
+    # See documentation: https://apidocs.pdf.co
+    parameters = {}
+    parameters["name"] = os.path.basename(destinationFile)
+    parameters["password"] = Password
+    parameters["pages"] = Pages
+    parameters["lang"] = Language
+    parameters["url"] = uploadedFileUrl
+
+    # Prepare URL for 'Make Searchable PDF' API request
+    url = f"{BASE_URL}/pdf/makesearchable"
+
+    # Execute request and get response as JSON
+    response = requests.post(url, data=parameters, headers={"x-api-key": API_KEY})
+    if response.status_code == 200:
+        json = response.json()
+
+        if not json["error"]:
+            # Get URL of result file
+            resultFileUrl = json["url"]
+            # Download result file
+            r = requests.get(resultFileUrl, stream=True)
+            if r.status_code == 200:
+                with open(destinationFile, 'wb') as file:
+                    for chunk in r:
+                        file.write(chunk)
+                print(f"Result file saved as \"{destinationFile}\" file.")
+            else:
+                print(f"Request error: {response.status_code} {response.reason}")
+        else:
+            # Show service-reported error
+            print(json["message"])
     else:
-        print("Available PDF files:")
-        for idx, pdf_file in enumerate(pdf_files, start=1):
-            print(f"{idx}. {pdf_file}")
+        print(f"Request error: {response.status_code} {response.reason}")
 
-        # Get user input for processing multiple files
-        selected_files = input("Enter the numbers of the PDF files to process (comma-separated, e.g., '1,2,3'): ").strip()
-        selected_files = [pdf_files[int(idx) - 1] for idx in selected_files.split(",")]
 
-        for pdf_file in selected_files:
-            print(f"\nProcessing file: {pdf_file}")
-            output_pdf_path = f"searchable_{os.path.basename(pdf_file)}"
-            convert_to_searchable_pdf(pdf_file, output_pdf_path)
+def uploadFile(fileName):
+    """Uploads file to the cloud"""
+
+    # 1. RETRIEVE PRESIGNED URL TO UPLOAD FILE.
+
+    # Prepare URL for 'Get Presigned URL' API request
+    url = f"{BASE_URL}/file/upload/get-presigned-url?contenttype=application/octet-stream&name={os.path.basename(fileName)}"
+
+    # Execute request and get response as JSON
+    response = requests.get(url, headers={"x-api-key": API_KEY})
+    if response.status_code == 200:
+        json = response.json()
+
+        if not json["error"]:
+            # URL to use for file upload
+            uploadUrl = json["presignedUrl"]
+            # URL for future reference
+            uploadedFileUrl = json["url"]
+
+            # 2. UPLOAD FILE TO CLOUD.
+            with open(fileName, 'rb') as file:
+                requests.put(uploadUrl, data=file, headers={"x-api-key": API_KEY, "content-type": "application/octet-stream"})
+
+            return uploadedFileUrl
+        else:
+            # Show service-reported error
+            print(json["message"])
+    else:
+        print(f"Request error: {response.status_code} {response.reason}")
+
+    return None
+
+
+if __name__ == '__main__':
+    main()

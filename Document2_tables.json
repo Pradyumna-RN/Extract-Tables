@@ -1,0 +1,49 @@
+{
+    "Tables": {
+        "Page 2": {
+            "Header": [
+                "Carton,Order No,Part Number,Description,Unit Price,Qty,Sales Value,Customs Value"
+            ],
+            "Rows": [
+                [
+                    "17.38,4,69.52,69.52,2401-643,K180470/1,A-5000-7557,M4 STY D8R L16 ,EWL16,Country of Origin: UNITED KINGDOM,90319000,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "20.00,4,80.00,80.00,2401-643,K180471/2,A-5004-0210,M2 STY D1S L10 ,EWL4.,Country of Origin: UNITED KINGDOM,90319000,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "25.00,1,25.00,25.00,2401-643,K180471/2,A-5004-1017,M2 STY D2SIN L20 ,EWL,Country of Origin: UNITED KINGDOM,90319000,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "60.00,4,240.00,240.00,2401-629,K180576,A-9553-1226,CABLE-LEMO/20WH ,10M,Country of Origin: INDIA,85444290,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "331.00,4,1,324.00,1,324.00,2401-629,K180576,RA27FAA104B30L,RESOLUTE FAN ,27BIT,Country of Origin: UNITED KINGDOM,90318080,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "360.00,5,1,800.00,1,800.00,2401-629,K180644,A-5923-0259,MACHINE I/O - NO,Country of Origin: UNITED KINGDOM,90319000,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "18.68,1,18.68,18.68,2401-643,K180706/2,A-5003-0055,M3 STY D2.5R L30 ,EWL,Country of Origin: UNITED KINGDOM,90319000,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "3.50,1,3.50,3.50,2401-643,K180757,A-9585-0028,RTL GLUE CLAMP ,KIT,Country of Origin: UNITED KINGDOM,90318080,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "157.50,1,157.50,157.50,2401-643,K180757,T2011-50A,TONIC READHEAD ,5M RE,Country of Origin: UNITED KINGDOM,90318080,Commodity Code,Export CPC    10 00 001"
+                ],
+                [
+                    "11.81,1,11.81,11.81,2401-643,K180757,A-6567-0004,RTLC40-S 40MM ,LONG,Country of Origin: UNITED KINGDOM,90318080,Commodity Code,Export CPC    10 00 001"
+                ]
+            ]
+        }
+    },
+    "Metadata": {
+        "format": "PDF 1.7",
+        "title": "GBWLCommercial.rpt v1.19",
+        "creator": "Crystal Reports",
+        "producer": "Powered By Crystal",
+        "creationDate": "D:20240105151255+05'30'",
+        "modDate": "D:20250225161817+05'30'"
+    }
+}

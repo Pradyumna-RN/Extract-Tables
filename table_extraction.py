@@ -10,48 +10,64 @@ from cryptography.utils import CryptographyDeprecationWarning
 warnings.filterwarnings("ignore", category=CryptographyDeprecationWarning)
 
 def extract_pdf_metadata(file_path):
+    """
+    Extracts metadata from a PDF file.
+    """
     try:
         pdf_document = fitz.open(file_path)
         metadata = pdf_document.metadata
 
         if metadata:
-            metadata = {"Metadata": {key: value for key, value in metadata.items() if value}}
-            metadata = json.dumps(metadata, indent=4)
-            print(f"Metadata for {file_path}:\n{metadata}")
+            metadata = {key: value for key, value in metadata.items() if value}
+            print(f"Metadata for {file_path}:\n{json.dumps(metadata, indent=4)}")
+            return metadata
         else:
             print(f"No metadata found in the PDF: {file_path}")
+            return {}
     except Exception as e:
         print(f"An error occurred while extracting metadata from {file_path}: {e}")
+        return {}
 
-def extract_table_rows_from_pdf(file_path, pages):
+def extract_table_rows_from_pdf(file_path, pages, output_json_path):
+    """
+    Extracts tables from a PDF file and saves the data to a JSON file.
+    """
     try:
         tables = camelot.read_pdf(file_path, pages=pages)
+        output_data = {}
+
         if tables.n > 0:
             tables_data = {}
             for i, table in enumerate(tables):
                 page_number = table.parsing_report['page']
-                
-                # Extract header
+
+                # Extract header and remove blank values
                 header = table.df.iloc[0].tolist()
-                header = [item.replace('\n', ',').strip() for item in header]  # Flatten header cells
-                
-                # Extract rows (excluding the header row) and replace '\n' with a comma
+                header = [item.replace('\n', ',').strip() for item in header if item.strip()]  # Remove blank values
+
+                # Extract rows (excluding the header row), replace '\n' with a comma, and remove blank values
                 rows = table.df.iloc[1:].values.tolist()
-                flattened_rows = [cell.replace('\n', ',').strip() for row in rows for cell in row]
-                
+                flattened_rows = [
+                    [cell.replace('\n', ',').strip() for cell in row if cell.strip()] for row in rows
+                ]
+
                 # Store page number, header, and rows in a dictionary
                 tables_data[f"Page {page_number}"] = {
                     "Header": header,
                     "Rows": flattened_rows
                 }
 
-            # Convert tables data to JSON
-            tables_json = json.dumps(tables_data, indent=4)
-            print(f"Extracted Table Data for {file_path}:\n{tables_json}")
-            return tables_json
+            # Add tables data to the output JSON
+            output_data["Tables"] = tables_data
         else:
             print(f"No tables found on the specified pages: {pages} in {file_path}.")
-            return None
+            output_data["Tables"] = {}
+
+        # Save tables data and metadata to a JSON file
+        with open(output_json_path, "w", encoding="utf-8") as json_file:
+            json.dump(output_data, json_file, indent=4)
+        print(f"Extracted table data saved to {output_json_path}")
+        return output_data
     except Exception as e:
         print(f"An error occurred while extracting table rows from {file_path}: {e}")
         return None
@@ -77,5 +93,17 @@ if __name__ == "__main__":
         for pdf_file in selected_files:
             print(f"\nProcessing file: {pdf_file}")
             pages = input(f"Enter the page ranges to extract tables for '{pdf_file}' (e.g., '1-3' or '1,2,3'): ").strip()
-            extract_pdf_metadata(pdf_file)
-            extract_table_rows_from_pdf(pdf_file, pages)
+
+            # Extract metadata
+            metadata = extract_pdf_metadata(pdf_file)
+
+            # Extract table rows and save to JSON
+            output_json_path = f"{os.path.splitext(pdf_file)[0]}_tables.json"
+            output_data = extract_table_rows_from_pdf(pdf_file, pages, output_json_path)
+
+            # Add metadata to the JSON file
+            if output_data is not None:
+                output_data["Metadata"] = metadata
+                with open(output_json_path, "w", encoding="utf-8") as json_file:
+                    json.dump(output_data, json_file, indent=4)
+                print(f"Metadata added to {output_json_path}")
