@@ -19,7 +19,7 @@ def extract_pdf_metadata(file_path):
 
         if metadata:
             metadata = {key: value for key, value in metadata.items() if value}
-            print(f"Metadata for {file_path}:\n{json.dumps(metadata, indent=4)}")
+            #print(f"Metadata for {file_path}:\n{json.dumps(metadata, indent=4)}")
             return metadata
         else:
             print(f"No metadata found in the PDF: {file_path}")
@@ -77,6 +77,11 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
 
+    # Ensure the output folder exists
+    output_folder = os.path.join(script_dir, "output")
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
     # List all PDF files in the current directory
     pdf_files = glob.glob("*.pdf")
     if not pdf_files:
@@ -98,7 +103,7 @@ if __name__ == "__main__":
             metadata = extract_pdf_metadata(pdf_file)
 
             # Extract table rows and save to JSON
-            output_json_path = f"{os.path.splitext(pdf_file)[0]}_tables.json"
+            output_json_path = os.path.join(output_folder, f"{os.path.splitext(pdf_file)[0]}_tables.json")
             output_data = extract_table_rows_from_pdf(pdf_file, pages, output_json_path)
 
             # Add metadata to the JSON file

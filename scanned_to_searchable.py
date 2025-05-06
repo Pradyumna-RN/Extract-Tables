@@ -14,8 +14,6 @@ Pages = ""
 Password = ""
 # OCR language. "eng", "fra", "deu", "spa" supported currently. Let us know if you need more.
 Language = "eng"
-# Destination PDF file name
-DestinationFile = ".\\digital.pdf"
 
 
 def main(args=None):
@@ -38,6 +36,9 @@ def main(args=None):
     # Get the selected file
     SourceFile = pdf_files[selected_idx]
     print(f"Selected file: {SourceFile}")
+
+    # Set the destination file name based on the input file name
+    DestinationFile = os.path.splitext(SourceFile)[0] + "_searchable.pdf"
 
     # Upload the selected file and make it searchable
     uploadedFileUrl = uploadFile(SourceFile)
