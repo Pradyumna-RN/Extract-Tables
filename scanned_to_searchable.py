@@ -66,6 +66,10 @@ def convert_to_searchable_pdf(input_pdf_path, output_pdf_path):
         return None
 
 if __name__ == "__main__":
+    # Set the working directory to the script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     # List all PDF files in the current directory
     pdf_files = glob.glob("*.pdf")
     if not pdf_files:

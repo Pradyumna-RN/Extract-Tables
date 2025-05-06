@@ -3,6 +3,7 @@ import json
 import fitz
 import glob
 import warnings
+import os
 from cryptography.utils import CryptographyDeprecationWarning
 
 # Suppress CryptographyDeprecationWarning
@@ -56,6 +57,10 @@ def extract_table_rows_from_pdf(file_path, pages):
         return None
 
 if __name__ == "__main__":
+    # Set the working directory to the script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     # List all PDF files in the current directory
     pdf_files = glob.glob("*.pdf")
     if not pdf_files:
