@@ -28,3 +28,11 @@ This project is a two-step pipeline for converting scanned PDFs into searchable 
    ```bash
    git clone <your-repo-url>
    cd <your-project-directory>
+
+---
+
+##Install Dependencies
+```bash
+  pip install -r requirements.txt
+
+
