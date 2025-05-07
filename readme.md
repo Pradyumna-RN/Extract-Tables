@@ -29,24 +29,59 @@ Edit
 # config.py
 API_KEY = "your_pdfco_api_key"
 
-Steps to Run the Project
-Place PDF Files
-Put the scanned PDF files you want to process into the same folder as the Python scripts.
+## How to Build and Test
 
-Run the main script
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd detect-tables-pdf
+   ```
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+   - You may need to install [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) and [poppler](http://blog.alivate.com.au/poppler-windows/) for pdf2image.
+3. **Add your PDFs:**
+   - Place all PDFs to process in the `input/` folder.
+4. **Run the script:**
+   ```bash
+   python main.py
+   ```
+5. **Check results:**
+   - Results will be in `output/results.csv` and `output/results.json`.
 
-python main.py
+## Security
+- No hardcoded credentials or PII.
+- Use of `.gitignore` to exclude sensitive/config files.
+- Apache 2.0 License included.
 
-When prompted:
-Type 1 to convert a scanned PDF to a searchable one.
+## Acceptance Criteria
+- Working code, robust to both digital and scanned PDFs.
+- Accurate table and title extraction with fallback logic.
+- Output in both CSV and JSON formats.
+- Clear documentation and licensing.
 
-Choose a PDF file number from the list that appears.
+## Installation
 
-Once conversion is done, the script will proceed to extract tables from PDFs.
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/detect-tables-pdf.git
+cd detect-tables-pdf
+```
 
-Select the files and page ranges as prompted.
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-Output
-Searchable PDFs are saved in the same directory with _searchable.pdf suffix.
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-Extracted tables + metadata are saved as JSON files in the output folder.
+## Usage
+
+### Command Line Interface
+
+The tool can be used through a command-line interface with the following options:
