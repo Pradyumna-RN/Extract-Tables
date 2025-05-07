@@ -4,7 +4,6 @@ This project provides a solution to convert scanned PDFs into searchable PDFs us
 Features
 Convert Scanned PDFs to Searchable PDFs:
 
-Uses Tesseract OCR to add searchable text to scanned PDFs.
 Includes advanced preprocessing for improved OCR accuracy.
 Extract Table Data:
 
@@ -13,75 +12,33 @@ Extract Metadata:
 Extracts metadata from the PDF file.
 Make sure you have the following installed:
 
-Python 3.x
+# PDF Table Extraction Pipeline
 
-Required Python packages:
+This project is a two-step pipeline for converting scanned PDFs into searchable PDFs and extracting tables from them into JSON format using OCR and table recognition tools.
 
-bash
-Copy
-Edit
-pip install requests camelot-py[cv] PyMuPDF cryptography
-A PDF.co API key, which you'll need to set in a file called config.py:
+## Features
 
-python
-Copy
-Edit
-# config.py
-API_KEY = "your_pdfco_api_key"
+- Converts scanned PDFs into searchable PDFs using PDF.co API
+- Extracts tables from searchable PDFs using Camelot
+- Saves extracted tables and metadata to structured JSON files
 
-## How to Build and Test
+---
 
-1. **Clone the repository:**
-   ```bash
-   git clone <your-repo-url>
-   cd detect-tables-pdf
-   ```
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-   - You may need to install [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) and [poppler](http://blog.alivate.com.au/poppler-windows/) for pdf2image.
-3. **Add your PDFs:**
-   - Place all PDFs to process in the `input/` folder.
-4. **Run the script:**
-   ```bash
-   python main.py
-   ```
-5. **Check results:**
-   - Results will be in `output/results.csv` and `output/results.json`.
+## Requirements
 
-## Security
-- No hardcoded credentials or PII.
-- Use of `.gitignore` to exclude sensitive/config files.
-- Apache 2.0 License included.
+- Python 3.7+
+- PDF.co API Key (required for OCR)
+- Required Python packages:
+  - `requests`
+  - `camelot-py[cv]`
+  - `PyMuPDF` (fitz)
+  - `cryptography`
 
-## Acceptance Criteria
-- Working code, robust to both digital and scanned PDFs.
-- Accurate table and title extraction with fallback logic.
-- Output in both CSV and JSON formats.
-- Clear documentation and licensing.
+---
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/detect-tables-pdf.git
-cd detect-tables-pdf
-```
-
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-### Command Line Interface
-
-The tool can be used through a command-line interface with the following options:
+1. **Clone the Repository**
+   ```bash
+   git clone <your-repo-url>
+   cd <your-project-directory>
