@@ -31,7 +31,7 @@ This project is a two-step pipeline for converting scanned PDFs into searchable 
 
 ---
 
-##Install Dependencies
+## Install Dependencies
 ```bash
   pip install -r requirements.txt
 
