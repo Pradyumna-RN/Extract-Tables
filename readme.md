@@ -1,7 +1,23 @@
 # PDF Table Extraction Pipeline
 
 This project is a two-step pipeline for converting scanned PDFs into searchable PDFs and extracting tables from them into JSON format using OCR and table recognition tools.
+```mermaid
+graph TD
+    B[Input File] --> I{PDF Type?}
+    I --> J[Scanned PDFs]
+    I --> K[Digital PDFs]
 
+    J --> C[scanned_to_searchable.py<br/>Uses PDF.co API to convert<br/>scanned PDFs to searchable format]
+    C --> E[Uploads file to PDF.co API<br/>Gets presigned URL<br/>Makes searchable PDF]
+    G --> D[table_extraction.py<br/>Uses camelot + fitz to extract<br/>tables & metadata from PDFs]
+
+    K --> D
+
+    D --> F[Extracts and cleans tables from PDFs<br/>using Camelot<br/>Saves as JSON w/ metadata]
+    E --> G[Final Output:<br/>- Searchable PDFs locally saved]
+    F --> H[Final Output:<br/>- JSON files containing table data and metadata]
+
+```
 ## Features
 
 - Converts scanned PDFs into searchable PDFs using PDF.co API
