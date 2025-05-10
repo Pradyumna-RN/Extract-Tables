@@ -54,6 +54,7 @@ graph LR
    ```bash
    pip install requests camelot-py PyMuPDF cryptography
    ```
+Ghostscript is a dependency module for camelot and can be install from [here](https://ghostscript.com/releases/gsdnld.html)
 ## Configure API Key
 **Create a config.py file in the root directory and insert your PDF.co API key:**
   ```bash
