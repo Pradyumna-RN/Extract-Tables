@@ -70,31 +70,41 @@ graph LR
 ```
 
 ## Steps to run the project 
-**Step 1: Convert to Searchable PDF**
+**Select Input file(s)**
 
-You will be prompted:
+Place all the pdf files in the input folder and select the files to be processed
 
-Enter 1 to see the list of PDFs in your directory and choose one to convert.
-
+All the files in the directory will be displayed
+```bash
+Available PDF files:
+1. Document1.pdf
+2. Document2.pdf
+3. Document3_scanned.pdf
+Enter the file numbers to process ('1-3' for a range, or '1,3,5' for multiple files):
+```
+If the selected pdf file is scanned the pdf is converted into digital pdf
+```bash
+The file 'Document2_scanned.pdf' is scanned. Converting to searchable PDF...
+Searchable PDF saved as: c:\<your-project-directory\input\Document3_scanned_searchable.pdf
+```
 The output will be saved as <filename>_searchable.pdf.
-  ```bash
-  Enter 1 to convert scanned PDFs to searchable PDFs or 0 to skip:
-  ```
 
+Then the extract tables function will run
 
-**Step 2: Extract Tables from Searchable PDFs**
-
-You'll see a list of PDFs again.
+**Extract tables**
 
 Provide page ranges (e.g., 1-3, 1,3,5) as prompted
 ```bash
-Enter the indices of the files (comma-separated) you want to extract tables from.
+Enter the page ranges to extract tables for 'Document2.pdf' (e.g., '1-3' or '1,2,3'): 2
 ```
-Extracted data will be saved as JSON in the output/ directory.
-
 ---
 
 ## Output
+Extracted data will be saved as JSON in the output folder.
+
+```bash
+Extracted table data saved to c:\<your-project-directory\output\Document2_tables.json
+```
 
 The project will generate JSON files containing:
 
@@ -102,11 +112,13 @@ Extracted tables (headers and rows)
 
 PDF metadata (e.g., title, author, producer, etc.)
 
+
+
 ## Notes
 
-The pipeline expects all PDF files to be in the same directory as the scripts.
+The pipeline expects all PDF files to be in the input folder.
 
 An internet connection is required for OCR via the PDF.co API.
 
-For large or complex tables, you may modify Camelot’s parsing mode (stream or lattice) in table_extraction.py.
+For large or complex tables, you may modify Camelot’s parsing mode (stream or lattice) in table_extraction.
 
