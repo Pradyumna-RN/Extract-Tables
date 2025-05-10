@@ -2,20 +2,18 @@
 
 This project is a two-step pipeline for converting scanned PDFs into searchable PDFs and extracting tables from them into JSON format using OCR and table recognition tools.
 ```mermaid
-graph TD
-    B[Input File] --> I{PDF Type?}
+graph LR
+    B[Input File] --> I{PDF Type}
     I --> J[Scanned PDFs]
     I --> K[Digital PDFs]
 
-    J --> C[scanned_to_searchable.py<br/>Uses PDF.co API to convert<br/>scanned PDFs to searchable format]
-    C --> E[Uploads file to PDF.co API<br/>Gets presigned URL<br/>Makes searchable PDF]
-    G --> D[table_extraction.py<br/>Uses camelot + fitz to extract<br/>tables & metadata from PDFs]
+    J --> E[Makes searchable PDF]
+    G --> D[Tables & metadata from PDFs]
 
     K --> D
 
-    D --> F[Extracts and cleans tables from PDFs<br/>using Camelot<br/>Saves as JSON w/ metadata]
-    E --> G[Final Output:<br/>- Searchable PDFs locally saved]
-    F --> H[Final Output:<br/>- JSON files containing table data and metadata]
+    D --> H[JSON files containing table data and metadata]
+    E --> G[Searchable PDFs locally saved]
 
 ```
 ## Features
@@ -40,11 +38,11 @@ graph TD
 
 ## Installation
 
-1. **Clone the Repository**
+**Clone the Repository**
    ```bash
    git clone <your-repo-url>
    cd <your-project-directory>
-
+   ```
 ---
 
 ## Install Dependencies
