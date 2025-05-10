@@ -1,7 +1,4 @@
-pymupdf==1.22.5 
-pytesseract==0.3.10  
-Pillow==9.5.0  
-camelot-py[cv]==0.10.1 
-pdfminer.six==20221105
+pymupdf
+camelot-py[cv]
 os
 requests
