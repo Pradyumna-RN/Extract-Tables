@@ -1,24 +1,23 @@
 # PDF Table Extraction Pipeline
 
-This project is a two-step pipeline for converting scanned PDFs into searchable PDFs and extracting tables from them into JSON format using OCR and table recognition tools.
+This project is a two-step pipeline for converting scanned PDFs into digital PDFs and extracting tables from them into JSON format using OCR and table recognition tools.
 ```mermaid
 graph LR
     B[Input File] --> I{PDF Type}
     I --> J[Scanned PDFs]
     I --> K[Digital PDFs]
 
-    J --> E[Makes searchable PDF]
-    G --> D[Tables & metadata from PDFs]
+    J --> E[Makes PDF digital]
+    E --> D[Tables & metadata from PDFs]
 
     K --> D
 
     D --> H[JSON files containing table data and metadata]
-    E --> G[Searchable PDFs locally saved]
 
 ```
 ## Features
 
-- Converts scanned PDFs into searchable PDFs using PDF.co API
+- Converts scanned PDFs into digital PDFs using PDF.co API
 - Extracts tables from searchable PDFs using Camelot
 - Saves extracted tables and metadata to structured JSON files
 
