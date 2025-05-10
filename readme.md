@@ -29,7 +29,7 @@ graph LR
 - PDF.co API Key (required for OCR)
 - Required Python packages:
   - `requests`
-  - `camelot-py[cv]`
+  - `camelot-py`
   - `PyMuPDF` (fitz)
   - `cryptography`
 
@@ -52,7 +52,7 @@ graph LR
 
 **If requirements.txt is not present, manually install:**
    ```bash
-   pip install requests camelot-py[cv] PyMuPDF cryptography
+   pip install requests camelot-py PyMuPDF cryptography
    ```
 ## Configure API Key
 **Create a config.py file in the root directory and insert your PDF.co API key:**
